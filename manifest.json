@@ -1,11 +1,11 @@
 {
-	"id": "sample-plugin",
-	"name": "Sample Plugin",
+	"id": "first-plugin-y",
+	"name": "Read-time",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
-	"description": "Demonstrates some of the capabilities of the Obsidian API.",
-	"author": "Obsidian",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
-	"isDesktopOnly": false
+	"description": "Read Time is a plugin that displays the estimated time required to read your current file",
+	"author": "Yaroslav",
+	"authorUrl": "https://github.com/Ktoettotakoy",
+	"fundingUrl": "https://savelife.in.ua/en/",
+	"isDesktopOnly": true
 }
