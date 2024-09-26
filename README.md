@@ -2,6 +2,9 @@
 
 This Obsidian plugin calculates the estimated time it takes to read the current file based on a user-configured reading speed (WPM - Words Per Minute). It also allows users to adjust their reading speed via the plugin settings or a simple command.
 
+## Note
+This plugin is still under development. Features may be added or changed over time.
+
 ## Features
 
 - Automatically calculates and displays the estimated reading time for the currently opened file in the status bar (right botom corner).
