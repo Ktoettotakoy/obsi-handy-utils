@@ -1,7 +1,7 @@
 {
-	"id": "first-plugin-y",
+	"id": "read-time-plugin-yar",
 	"name": "Read-time",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"minAppVersion": "0.15.0",
 	"description": "Read Time is a plugin that displays the estimated time required to read your current file",
 	"author": "Yaroslav",
