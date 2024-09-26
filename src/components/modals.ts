@@ -16,6 +16,7 @@ export class ChangeReadingSpeedModal extends Modal {
         // Set title for the modal
         contentEl.createEl('h2', { text: 'Change Reading Speed' });
 
+        // Create a div for a modal and a button
         const modalAndConfirmContainer = contentEl.createDiv();
         // Use flexbox for layout
         modalAndConfirmContainer.style.display = 'flex';  
@@ -28,17 +29,19 @@ export class ChangeReadingSpeedModal extends Modal {
             value: this.currentSpeed.toString(),
             placeholder: 'New reading speed (WPM)',
         });
-        input.setAttribute('min', '1'); // Ensure the minimum is 1
+        // Ensure the minimum is 1
+        input.setAttribute('min', '1'); 
 
         // Create a confirm button which is an element of modalAndConfirm div
         const confirmButton = modalAndConfirmContainer.createEl('button', { text: 'Confirm' });
         confirmButton.onclick = () => {
             const newSpeed = parseInt(input.value);
             if (newSpeed > 0) {
-                this.onConfirm(newSpeed); // Call the confirmation callback
+                // Call the confirmation callback
+                this.onConfirm(newSpeed); 
                 this.close();
             } else {
-                new Notice('Please enter a valid reading speed greater than 0.'); // Alert user for invalid input
+                new Notice('Please enter a valid reading speed greater than 0.');
             }
         };
 
