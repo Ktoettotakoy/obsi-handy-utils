@@ -1,6 +1,8 @@
 import { App, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
 import {cleanInputStringMdFormat} from "./utils/textCleaner";
 import { calculateReadingSpeed } from './utils/readingSpeed';
+import { ChangeReadingSpeedModal } from './components/modals';
+import { ReadSpeedSettingTab } from './components/settings';
 
 // Remember to rename these classes and interfaces!
 interface TimeToReadSettings {
@@ -61,7 +63,7 @@ export default class MyPlugin extends Plugin {
 		});
 
 		// This adds a settings tab so the user can configure various aspects of the plugin
-		this.addSettingTab(new SampleSettingTab(this.app, this));
+		this.addSettingTab(new ReadSpeedSettingTab(this.app, this));
 
 		// When registering intervals, this function will automatically clear the interval when the plugin is disabled.
 		this.registerInterval(window.setInterval(() => console.log('setInterval'), 5 * 60 * 1000));
@@ -77,89 +79,5 @@ export default class MyPlugin extends Plugin {
 
 	async saveSettings() {
 		await this.saveData(this.settings);
-	}
-}
-
-class ChangeReadingSpeedModal extends Modal {
-	private currentSpeed: number;
-	private onConfirm: (newSpeed: number) => void;
-
-	constructor(app: App, currentSpeed: number, onConfirm: (newSpeed: number) => void) {
-		super(app);
-		this.currentSpeed = currentSpeed;
-		this.onConfirm = onConfirm;
-	}
-
-	onOpen() {
-		const { contentEl } = this;
-
-		// Set title for the modal
-		
-		contentEl.createEl('h2', { text: 'Change Reading Speed' });
-
-		const modalAndConfirmContainer = contentEl.createDiv();
-		// Use flexbox for layout
-        modalAndConfirmContainer.style.display = 'flex';  
-		// justify content to space out modal window and confirmation button
-        modalAndConfirmContainer.style.justifyContent = 'space-between';
-
-		// Create input field for reading speed which is an element of modalAndConfirm div
-		const input = modalAndConfirmContainer.createEl('input', {
-			type: 'number',
-			value: this.currentSpeed.toString(),
-			placeholder: 'New reading speed (WPM)',
-		});
-		input.setAttribute('min', '1'); // Ensure the minimum is 1
-
-		// Create a confirm button which is an element of modalAndConfirm div
-		const confirmButton = modalAndConfirmContainer.createEl('button', { text: 'Confirm' });
-		confirmButton.onclick = () => {
-			const newSpeed = parseInt(input.value);
-			if (newSpeed > 0) {
-				this.onConfirm(newSpeed); // Call the confirmation callback
-				this.close();
-			} else {
-				new Notice('Please enter a valid reading speed greater than 0.'); // Alert user for invalid input
-			}
-		};
-
-		// Append buttons to the modal content
-		contentEl.appendChild(modalAndConfirmContainer);
-	}
-
-	onClose() {
-		const { contentEl } = this;
-		contentEl.empty(); // Clear the modal content on close
-	}
-}
-
-
-class SampleSettingTab extends PluginSettingTab {
-	plugin: MyPlugin;
-
-	constructor(app: App, plugin: MyPlugin) {
-		super(app, plugin);
-		this.plugin = plugin;
-	}
-
-	display(): void {
-		const {containerEl} = this;
-
-		containerEl.empty();
-
-		new Setting(containerEl)
-			.setName('Reading Speed (WPM)')
-			.setDesc('Set your preferred reading speed in words per minute.')
-			.addText(text => text
-				.setPlaceholder('Enter your WPM')
-				.setValue(this.plugin.settings.readSpeed.toString())
-				.onChange(async (value) => {
-					const newSpeed = parseInt(value);
-					if (!isNaN(newSpeed) && newSpeed > 0) {
-						this.plugin.settings.readSpeed = newSpeed;
-						await this.plugin.saveSettings();
-					}
-					await this.plugin.saveSettings();
-				}));
 	}
 }
