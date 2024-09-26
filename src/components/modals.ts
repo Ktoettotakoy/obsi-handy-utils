@@ -17,11 +17,7 @@ export class ChangeReadingSpeedModal extends Modal {
         contentEl.createEl('h2', { text: 'Change Reading Speed' });
 
         // Create a div for a modal and a button
-        const modalAndConfirmContainer = contentEl.createDiv();
-        // Use flexbox for layout
-        modalAndConfirmContainer.style.display = 'flex';  
-        // justify content to space between modal window and confirmation button
-        modalAndConfirmContainer.style.justifyContent = 'space-between';
+        const modalAndConfirmContainer = contentEl.createDiv('modal-confirm-container');
 
         // Create input field for reading speed which is an element of modalAndConfirm div
         const input = modalAndConfirmContainer.createEl('input', {
