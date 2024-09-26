@@ -1,4 +1,4 @@
-import { App, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
+import { Notice, Plugin } from 'obsidian';
 import {cleanInputStringMdFormat} from "./utils/textCleaner";
 import { calculateReadingSpeed } from './utils/readingSpeed';
 import { ChangeReadingSpeedModal } from './components/modals';
@@ -56,6 +56,7 @@ export default class MyPlugin extends Plugin {
 					
 					// Save the updated settings
 					await this.saveSettings(); 
+					
 					// Notify the user
 					new Notice(`Reading speed updated to ${newSpeed} WPM`);
 				}).open(); // Open the modal
@@ -64,9 +65,6 @@ export default class MyPlugin extends Plugin {
 
 		// This adds a settings tab so the user can configure various aspects of the plugin
 		this.addSettingTab(new ReadSpeedSettingTab(this.app, this));
-
-		// When registering intervals, this function will automatically clear the interval when the plugin is disabled.
-		this.registerInterval(window.setInterval(() => console.log('setInterval'), 5 * 60 * 1000));
 	}
 
 	onunload() {
