@@ -1,3 +1,4 @@
+/* style for modal window that pops up when the command change reading speed is called */
 .modal-confirm-container {
     display: flex;
     justify-content: space-between;

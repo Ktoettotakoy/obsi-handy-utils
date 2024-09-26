@@ -47,7 +47,7 @@ export default class MyPlugin extends Plugin {
 		// This adds a simple command that can be triggered anywhere
 		this.addCommand({
 			id: 'change-reading-speed',
-			name: 'Change reading speed',
+			name: 'change reading speed',
 			callback: async () => {
 				const currentSpeed = this.settings.readSpeed;
 				new ChangeReadingSpeedModal(this.app, currentSpeed, async (newSpeed) => {
