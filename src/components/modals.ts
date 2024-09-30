@@ -34,7 +34,7 @@ export class ChangeReadingSpeedModal extends Modal {
             const newSpeed = parseInt(input.value);
             if (newSpeed > 0) {
                 // Call the confirmation callback
-                this.onConfirm(newSpeed); 
+                this.onConfirm(newSpeed);
                 this.close();
             } else {
                 new Notice('Please enter a valid reading speed greater than 0.');

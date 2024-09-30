@@ -24,6 +24,8 @@ export class ReadSpeedSettingTab extends PluginSettingTab {
                     const newSpeed = parseInt(value);
                     if (!isNaN(newSpeed) && newSpeed > 0) {
                         this.plugin.settings.readSpeed = newSpeed;
+                        // update ui
+                        this.plugin.updateReadingTimeInStatusBar();
                         await this.plugin.saveSettings();
                     }
                 }));
@@ -38,6 +40,8 @@ export class ReadSpeedSettingTab extends PluginSettingTab {
                 .setValue(this.plugin.settings.timeFormat)
                 .onChange(async (value) => {
                     this.plugin.settings.timeFormat = value;
+                    // update ui
+                    this.plugin.updateReadingTimeInStatusBar();
                     await this.plugin.saveSettings();
                 }));
     }
