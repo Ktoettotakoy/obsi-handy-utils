@@ -27,5 +27,18 @@ export class ReadSpeedSettingTab extends PluginSettingTab {
                         await this.plugin.saveSettings();
                     }
                 }));
+
+        new Setting(containerEl)
+            .setName('Status Bar Time Format')
+            .setDesc('Select how reading time should be displayed.')
+            .addDropdown(dropdown => dropdown
+                .addOption('long', 'Long (2 minutes and 30 seconds)')
+                .addOption('short', 'Short (5m 30s)')
+                .addOption('compact', 'Compact (5:30)')
+                .setValue(this.plugin.settings.timeFormat)
+                .onChange(async (value) => {
+                    this.plugin.settings.timeFormat = value;
+                    await this.plugin.saveSettings();
+                }));
     }
 }

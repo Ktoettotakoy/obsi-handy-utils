@@ -3,14 +3,18 @@ import {cleanInputStringMdFormat} from "./utils/textCleaner";
 import { calculateReadingSpeed } from './utils/readingSpeed';
 import { ChangeReadingSpeedModal } from './components/modals';
 import { ReadSpeedSettingTab } from './components/settings';
+import { formatReadingTime } from './utils/formatReadingTimeStatusBar';
+import { time } from 'console';
 
 // Remember to rename these classes and interfaces!
 interface TimeToReadSettings {
 	readSpeed: number
+	timeFormat: string
 }
 
 const DEFAULT_SETTINGS: TimeToReadSettings = {
-	readSpeed: 60 // default read speed
+	readSpeed: 60, // default read speed
+	timeFormat: "long"
 }
 
 export default class MyPlugin extends Plugin {
@@ -39,7 +43,8 @@ export default class MyPlugin extends Plugin {
 					// calculate the read time
 					const timeToRead = calculateReadingSpeed(this.settings.readSpeed, file_content);
 					// update text in status bar
-					statusBarReadTimeEl.setText(`${timeToRead.minutes} minutes and ${timeToRead.seconds} seconds`); 
+					const formatString = formatReadingTime(timeToRead, this.settings.timeFormat)
+					statusBarReadTimeEl.setText(formatString); 
 				}
 			})
 		);

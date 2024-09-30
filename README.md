@@ -14,6 +14,13 @@ This plugin is still under development. Features may be added or changed over ti
 ## Commands
 - `Read Time: change reading speed` pops up a window that allows user to set the reading speed (WPM)
 
+## Settings
+- **Reading Speed (WPM)**: Set your preferred reading speed in words per minute. This affects how the reading time is calculated for any open file.
+- **Status Bar Time Format**: Choose how the reading time is displayed in the status bar:
+  - `Long`: Displays reading time as "2 minutes and 30 seconds."
+  - `Short`: Displays reading time as "2m 30s."
+  - `Compact`: Displays reading time as "2:30."
+
 ## Installation
 I'll make the plugin accessible for anybody later. In order to start it locally you have to:
 1. Download the plugin and unzip the files or simply git clone it.
