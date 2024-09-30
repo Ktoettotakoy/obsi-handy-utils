@@ -24,14 +24,17 @@ export default class MyPlugin extends Plugin {
 		// load settings
 		await this.loadSettings();
 
-		// This adds a status bar item to the bottom of the app. Does not work on mobile apps.
+		// This adds a status bar item to the bottom of the app
 		this.statusBarReadTimeEl = this.addStatusBarItem();
+
+		// Bind `this` to ensure context is maintained for event handlers
+		this.updateReadingTimeInStatusBar = this.updateReadingTimeInStatusBar.bind(this);
 
 		// run onload once
 		this.updateReadingTimeInStatusBar();
 
 		// register event of opening a file and perform function call
-		this.registerEvent(this.app.workspace.on('active-leaf-change', this.updateReadingTimeInStatusBar));
+		this.registerEvent(this.app.workspace.on('file-open', this.updateReadingTimeInStatusBar));
 		// register event of saving a file and perform function call
 		this.registerEvent(this.app.vault.on('modify', this.updateReadingTimeInStatusBar));
 
@@ -45,6 +48,9 @@ export default class MyPlugin extends Plugin {
 					// Update settings with new speed
 					this.settings.readSpeed = newSpeed; 
 					
+					// update ui
+					this.updateReadingTimeInStatusBar();
+
 					// Save the updated settings
 					await this.saveSettings(); 
 					
@@ -83,6 +89,8 @@ export default class MyPlugin extends Plugin {
 
             // Update the status bar text
             this.statusBarReadTimeEl.setText(formatString);
-        }
+        } else {
+			this.statusBarReadTimeEl.setText(setNullReadingTime(this.settings.timeFormat))
+		}
     }
 }
