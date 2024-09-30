@@ -3,8 +3,7 @@ import {cleanInputStringMdFormat} from "./utils/textCleaner";
 import { calculateReadingSpeed } from './utils/readingSpeed';
 import { ChangeReadingSpeedModal } from './components/modals';
 import { ReadSpeedSettingTab } from './components/settings';
-import { formatReadingTime } from './utils/formatReadingTimeStatusBar';
-import { time } from 'console';
+import { formatReadingTime, setNullReadingTime } from './utils/formatReadingTimeStatusBar';
 
 // Remember to rename these classes and interfaces!
 interface TimeToReadSettings {
@@ -23,6 +22,7 @@ export default class MyPlugin extends Plugin {
 	async onload() {
 		const cur_workspace = this.app.workspace;
 		const cur_vault = this.app.vault;
+		
 
 		await this.loadSettings();
 
@@ -38,8 +38,13 @@ export default class MyPlugin extends Plugin {
 				const timeToRead = calculateReadingSpeed(this.settings.readSpeed, file_content);
 				const formatString = formatReadingTime(timeToRead, this.settings.timeFormat);
 				statusBarReadTimeEl.setText(formatString);
+			} else {
+				statusBarReadTimeEl.setText(setNullReadingTime(this.settings.timeFormat));
 			}
 		};
+
+		// run onload once
+		updateReadingTime();
 
 		// register event of opening a file and perform function call
 		this.registerEvent(cur_workspace.on('file-open', updateReadingTime));

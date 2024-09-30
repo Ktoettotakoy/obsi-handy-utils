@@ -11,4 +11,17 @@ function formatReadingTime(timeObj: {minutes: number, seconds:number}, format: s
     }
 }
 
-export { formatReadingTime };
+function setNullReadingTime(format: string): string{
+    switch (format) {
+        case 'long':
+            return `0 minutes and 0 seconds`;
+        case 'short':
+            return `0m 0s`;
+        case 'compact':
+            return `0:0`;
+        default:
+            return `0 minutes and 0 seconds`;
+    }
+}
+
+export { formatReadingTime, setNullReadingTime };
