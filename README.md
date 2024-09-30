@@ -7,7 +7,7 @@ This plugin is still under development. Features may be added or changed over ti
 
 ## Features
 
-- Automatically calculates and displays the estimated reading time for the currently opened file in the status bar (right botom corner).
+- Automatically calculates and displays the estimated reading time for the currently opened file in the status bar (right bottom corner).
 - Allows the user to adjust the default reading speed (in WPM) via a settings panel or using a command to quickly change the reading speed using a modal window.
 - Clear the content from markdown-specific items like links or image placeholders to ensure an accurate word count.
 

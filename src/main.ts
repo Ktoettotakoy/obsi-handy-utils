@@ -29,25 +29,22 @@ export default class MyPlugin extends Plugin {
 		// This adds a status bar item to the bottom of the app. Does not work on mobile apps.
 		const statusBarReadTimeEl = this.addStatusBarItem();
 		
+		// Function to handle reading time calculation and status bar update
+		const updateReadingTime = async () => {
+			const active_file = cur_workspace.getActiveFile();
+			if (active_file) {
+				let file_content = await cur_vault.read(active_file);
+				file_content = cleanInputStringMdFormat(file_content);
+				const timeToRead = calculateReadingSpeed(this.settings.readSpeed, file_content);
+				const formatString = formatReadingTime(timeToRead, this.settings.timeFormat);
+				statusBarReadTimeEl.setText(formatString);
+			}
+		};
 
-		// register event of opening a file
-		this.registerEvent(
-			cur_workspace.on('file-open', async () => {
-        
-				const active_file = cur_workspace.getActiveFile();
-				// read the file when it is open
-				if (active_file){
-					let file_content = await cur_vault.read(active_file)
-					// clear the file from links, and any other rubbish like images
-					file_content = cleanInputStringMdFormat(file_content);
-					// calculate the read time
-					const timeToRead = calculateReadingSpeed(this.settings.readSpeed, file_content);
-					// update text in status bar
-					const formatString = formatReadingTime(timeToRead, this.settings.timeFormat)
-					statusBarReadTimeEl.setText(formatString); 
-				}
-			})
-		);
+		// register event of opening a file and perform function call
+		this.registerEvent(cur_workspace.on('file-open', updateReadingTime));
+		// register event of saving a file and perform function call
+		this.registerEvent(cur_vault.on('modify', updateReadingTime));
 
 		// This adds a simple command that can be triggered anywhere
 		this.addCommand({
