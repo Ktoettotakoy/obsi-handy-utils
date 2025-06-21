@@ -1,51 +1,51 @@
 # My Handy Utils – Obsidian Plugin
 
-**My Handy Utils** is an Obsidian plugin that bundles several frequently-used utilities to enhance your note-taking workflow. Currently, it includes:
-
-- Reading Time: Estimate how long it will take to read your notes.
-- Generate Table of Contents: Quickly insert a structured table of contents for better navigation.
+**My Handy Utils** is a lightweight Obsidian plugin that bundles tools I would love to have improve your note-taking experience
 
 ---
 
 ## Features
 
 ### Reading Time
-- Automatically calculates and displays the estimated reading time for the current file in the status bar (bottom right).
-- Strips away markdown-specific syntax like links and images to ensure accurate word counts.
-- Customize the reading speed (Words Per Minute) via plugin settings or a quick-access command.
+- Displays the estimated reading time for the current note in the status bar (bottom right).
+- Ignores markdown syntax such as links and images to ensure accurate word counts.
+- Customize your reading speed (Words Per Minute) via plugin settings or command palette.
 
 ### Generate Table of Contents
-- Generate a markdown-friendly table of contents based on headings in your file.
-- Quickly insert the ToC at the current cursor position or as a command.
+- Automatically generates a clean, markdown-friendly table of contents based on the note's headings.
+- Indents list items based on heading levels.
+- Inserts the ToC in a dedicated section between `## Content` and the next `---`, replacing any previous ToC.
 
 ---
 
 ## Commands
 
-- `Read Time: Change Reading Speed`
-  Opens a modal to update your preferred reading speed (WPM).
+### `Read Time: Change Reading Speed`
+- Opens a modal where you can input your preferred reading speed (WPM).
 
-- `Generate Table of Contents`
-  Automatically inserts a table of contents based on the document structure.
+### `Generate Table of Contents`
+- Scans your document and builds a hierarchical ToC based on the heading structure.
+- Ensures only one ToC exists by replacing any existing content between `## Content` and the next `---`.
 
 ---
 
 ## Settings
 
 ### Reading Time
-- **Reading Speed (WPM)**: Set how fast you read (in words per minute) for more accurate time estimates.
+- **Reading Speed (WPM)**: Set your average reading speed for more personalized time estimates.
 - **Status Bar Time Format**:
-  - `Long`: "2 minutes and 30 seconds"
-  - `Short`: "2m 30s"
-  - `Compact`: "2:30"
+  - `Long`: e.g., `2 minutes and 30 seconds`
+  - `Short`: e.g., `2m 30s`
+  - `Compact`: e.g., `2:30`
 
-### Table of Contents
-- (Optional) Settings can be added here if the ToC feature becomes more customizable.
+> You can access these settings under `Settings → Plugin Options → My Handy Utils`.
 
 ---
 
-## More Features Coming Soon
-My Handy Utils is actively being developed to include even more time-saving tools. Stay tuned!
+## 🚧 More Features Coming Soon
+This plugin is actively developed and will include more utilities to improve your workflow. Stay tuned for updates!
+
+---
 
 
 ## Installation
