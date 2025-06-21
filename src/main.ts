@@ -4,6 +4,7 @@ import { calculateReadingSpeed } from './utils/readingSpeed';
 import { ChangeReadingSpeedModal } from './components/modals';
 import { ReadSpeedSettingTab } from './components/settings';
 import { formatReadingTime, setNullReadingTime } from './utils/formatReadingTimeStatusBar';
+import { findContentsLine, findAllHeadingsInOrder } from './utils/contentGeneration/contentParser';
 
 // Remember to rename these classes and interfaces!
 interface TimeToReadSettings {
@@ -46,23 +47,37 @@ export default class MyPlugin extends Plugin {
 				const currentSpeed = this.settings.readSpeed;
 				new ChangeReadingSpeedModal(this.app, currentSpeed, async (newSpeed) => {
 					// Update settings with new speed
-					this.settings.readSpeed = newSpeed; 
-					
+					this.settings.readSpeed = newSpeed;
+
 					// update ui
 					this.updateReadingTimeInStatusBar();
 
 					// Save the updated settings
-					await this.saveSettings(); 
-					
+					await this.saveSettings();
+
 					// Notify the user
 					new Notice(`Reading speed updated to ${newSpeed} WPM`);
 				}).open(); // Open the modal
 			}
 		});
 
-		// This adds a settings tab so the user can configure various aspects of the plugin
+		this.addCommand({
+			id: 'generate-table-of-contents',
+			name: 'generate table of contents',
+			callback: async () => {
+				const activeFile = this.app.workspace.getActiveFile();
+				if (activeFile){
+					let fileContent = await this.app.vault.read(activeFile);
+					console.log(findContentsLine(fileContent));
+					console.log(findAllHeadingsInOrder(fileContent))
+				}
+				console.log("Done");
+			}
+		})
+
+		// Adds a settings tab so the user can configure various aspects of the plugin
 		this.addSettingTab(new ReadSpeedSettingTab(this.app, this));
-		
+
 	}
 
 	onunload() {
@@ -79,12 +94,12 @@ export default class MyPlugin extends Plugin {
 
 	// Function to handle reading time calculation and status bar update
     async updateReadingTimeInStatusBar() {
-        const active_file = this.app.workspace.getActiveFile();
-        if (active_file) {
-            let file_content = await this.app.vault.read(active_file);
-            file_content = cleanInputStringMdFormat(file_content);
-            
-            const timeToRead = calculateReadingSpeed(this.settings.readSpeed, file_content);
+        const activeFile = this.app.workspace.getActiveFile();
+        if (activeFile) {
+            let fileContent = await this.app.vault.read(activeFile);
+            fileContent = cleanInputStringMdFormat(fileContent);
+
+            const timeToRead = calculateReadingSpeed(this.settings.readSpeed, fileContent);
             const formatString = formatReadingTime(timeToRead, this.settings.timeFormat);
 
             // Update the status bar text
