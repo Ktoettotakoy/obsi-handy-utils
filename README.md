@@ -1,22 +1,52 @@
-# Obsidian Reading Time Plugin
+# My Handy Utils – Obsidian Plugin
 
-This Obsidian plugin calculates the estimated time it takes to read the current file based on a user-configured reading speed (WPM - Words Per Minute). It also allows users to adjust their reading speed via the plugin settings or a simple command.
+**My Handy Utils** is an Obsidian plugin that bundles several frequently-used utilities to enhance your note-taking workflow. Currently, it includes:
+
+- Reading Time: Estimate how long it will take to read your notes.
+- Generate Table of Contents: Quickly insert a structured table of contents for better navigation.
+
+---
 
 ## Features
 
-- Automatically calculates and displays the estimated reading time for the currently opened file in the status bar (right bottom corner).
-- Allows the user to adjust the default reading speed (in WPM) via a settings panel or using a command to quickly change the reading speed using a modal window.
-- Clear the content from markdown-specific items like links or image placeholders to ensure an accurate word count.
+### Reading Time
+- Automatically calculates and displays the estimated reading time for the current file in the status bar (bottom right).
+- Strips away markdown-specific syntax like links and images to ensure accurate word counts.
+- Customize the reading speed (Words Per Minute) via plugin settings or a quick-access command.
+
+### Generate Table of Contents
+- Generate a markdown-friendly table of contents based on headings in your file.
+- Quickly insert the ToC at the current cursor position or as a command.
+
+---
 
 ## Commands
-- `Read Time: change reading speed` pops up a window that allows user to set the reading speed (WPM)
+
+- `Read Time: Change Reading Speed`
+  Opens a modal to update your preferred reading speed (WPM).
+
+- `Generate Table of Contents`
+  Automatically inserts a table of contents based on the document structure.
+
+---
 
 ## Settings
-- **Reading Speed (WPM)**: Set your preferred reading speed in words per minute. This affects how the reading time is calculated for any open file.
-- **Status Bar Time Format**: Choose how the reading time is displayed in the status bar:
-  - `Long`: Displays reading time as "2 minutes and 30 seconds."
-  - `Short`: Displays reading time as "2m 30s."
-  - `Compact`: Displays reading time as "2:30."
+
+### Reading Time
+- **Reading Speed (WPM)**: Set how fast you read (in words per minute) for more accurate time estimates.
+- **Status Bar Time Format**:
+  - `Long`: "2 minutes and 30 seconds"
+  - `Short`: "2m 30s"
+  - `Compact`: "2:30"
+
+### Table of Contents
+- (Optional) Settings can be added here if the ToC feature becomes more customizable.
+
+---
+
+## More Features Coming Soon
+My Handy Utils is actively being developed to include even more time-saving tools. Stay tuned!
+
 
 ## Installation
 I'll make the plugin accessible for anybody later. In order to start it locally you have to:
