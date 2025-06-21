@@ -1,14 +1,12 @@
 // return index of a line that contains the ## Content
-function findContentsLine(fileContent:string): number {
-    // console.log(fileContent)
-    let lines = fileContent.split("\n")
-    for (let i = 0; i < lines.length; i++) {
-        if(lines[i].contains("## Content")){
-            console.log(lines[i])
-            return i;
-        }
-    }
-    return -1;
+function findContentsLine(fileContent: string): number {
+    const lines = fileContent.split("\n");
+    return lines.findIndex(line => line.trim() === "## Content:");
+}
+
+function findThreeDashesAfterContents(fileContent:string, contentIndex: number): number {
+    let lines = fileContent.split("\n");
+    return lines.findIndex((line, i) => i > contentIndex && line.trim() === "---");
 }
 
 function findAllHeadingsInOrder(fileContent: string): string[] {
@@ -26,4 +24,4 @@ function findAllHeadingsInOrder(fileContent: string): string[] {
     return headings;
 }
 
-export { findContentsLine, findAllHeadingsInOrder }
+export { findContentsLine, findAllHeadingsInOrder, findThreeDashesAfterContents }

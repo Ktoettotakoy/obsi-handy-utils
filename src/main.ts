@@ -4,16 +4,17 @@ import { calculateReadingSpeed } from './utils/readingSpeed';
 import { ChangeReadingSpeedModal } from './components/modals';
 import { ReadSpeedSettingTab } from './components/settings';
 import { formatReadingTime, setNullReadingTime } from './utils/formatReadingTimeStatusBar';
-import { findContentsLine, findAllHeadingsInOrder } from './utils/contentGeneration/contentParser';
+import { findContentsLine, findAllHeadingsInOrder, findThreeDashesAfterContents } from './utils/contentGeneration/contentParser';
+import { generateTOCLines, replaceTOCBetweenContentAndRule } from './utils/contentGeneration/tableOfContentWriter';
 
-// Remember to rename these classes and interfaces!
+
 interface TimeToReadSettings {
 	readSpeed: number
 	timeFormat: string
 }
 
 const DEFAULT_SETTINGS: TimeToReadSettings = {
-	readSpeed: 60, // default read speed
+	readSpeed: 60, // default reading speed
 	timeFormat: "long"
 }
 
@@ -63,22 +64,48 @@ export default class MyPlugin extends Plugin {
 
 		this.addCommand({
 			id: 'generate-table-of-contents',
-			name: 'generate table of contents',
+			name: 'Generate Table of Contents',
 			callback: async () => {
 				const activeFile = this.app.workspace.getActiveFile();
-				if (activeFile){
-					let fileContent = await this.app.vault.read(activeFile);
-					console.log(findContentsLine(fileContent));
-					console.log(findAllHeadingsInOrder(fileContent))
+
+				if (!activeFile) {
+					new Notice(`No Active File`);
+					return;
 				}
-				console.log("Done");
-			}
-		})
+
+				let fileContent = await this.app.vault.read(activeFile);
+
+				// find "## Content"
+				const startLine = findContentsLine(fileContent);
+				if (startLine == -1){
+					new Notice(`## Content is not found in this file`);
+					return;
+				}
+
+				// find "---" delimiter
+				const endLine = findThreeDashesAfterContents(fileContent, startLine);
+				if (endLine == -1){
+					new Notice(`\"---\" is not found after Content heading in a file`);
+					return;
+				}
+
+				const orderedHeadings = findAllHeadingsInOrder(fileContent);
+				const tocLines = generateTOCLines(orderedHeadings);
+				const newContent = replaceTOCBetweenContentAndRule(fileContent, tocLines, startLine, endLine);
+				await this.app.vault.modify(activeFile, newContent);
+
+				new Notice("Table of Contents updated");
+		}});
+
+
+
+
 
 		// Adds a settings tab so the user can configure various aspects of the plugin
 		this.addSettingTab(new ReadSpeedSettingTab(this.app, this));
 
 	}
+
 
 	onunload() {
 		// do nothing, everything should be unloaded automatically
