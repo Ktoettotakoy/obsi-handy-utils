@@ -16,7 +16,7 @@ function findAllHeadingsInOrder(fileContent: string): string[] {
     const headings: string[] = [];
     for (let i = 0; i < lines.length; i++) {
         const match = lines[i].match(headingRegex);
-        if (match && lines[i].trim() !== "## Content") {
+        if (match && lines[i].trim() !== "## Content:") {
             headings.push(lines[i].trim());
         }
     }
