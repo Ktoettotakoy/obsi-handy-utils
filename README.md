@@ -54,4 +54,4 @@ I'll make the plugin accessible for anybody later. In order to start it locally 
 2. Move the folder to your Obsidian plugins directory: `your-vault/.obsidian/plugins/`
 3. Open terminal in that folder and run ```npm run dev```. It should create a main.js file (that's the way to check if it's compiled).
 4. In Obsidian, go to `Settings > Community plugins`, and make sure `Safe mode` is off.
-5. Click on `Browse`, search for this plugin (Read-time), and enable it unless it's already in your library.
+5. Click on `Browse`, search for this plugin (Handy Utils), and enable it unless it's already in your library.
