@@ -1,7 +1,7 @@
 {
-	"name": "read-time-obsi-plugin",
+	"name": "obsi-handy-utils",
 	"version": "1.0.4",
-	"description": "My Handy utils is a plugin that contain several features that I use all the time",
+	"description": "Handy utils is a plugin that contain several features that I use all the time",
 	"main": "main.js",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",
